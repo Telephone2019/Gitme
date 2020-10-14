@@ -5,6 +5,11 @@
 #ifndef GITME_GITME_TYPE_H
 #define GITME_GITME_TYPE_H
 
+#define NC "\033[0m"
+#define SP " "
+#define ORANGE "\033[0;33m"
+#define LIGHT_BLUE "\033[1;34m"
+
 typedef std::map<std::string, std::string> args_table_type;
 
 class arg {

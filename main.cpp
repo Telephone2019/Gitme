@@ -59,9 +59,11 @@ void init(){
 void show_usage(){
     char usage[] = "a subcommand required: (one of these)";
     std::cout << usage << std::endl;
+    std::cout << ORANGE;
     for (auto &i : table){
         std::cout << i.first << std::endl;
     }
+    std::cout << NC;
 }
 
 int main(int argc, char **argv) {
