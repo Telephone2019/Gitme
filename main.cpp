@@ -3,7 +3,8 @@
 #include <unistd.h>
 
 #include "gitme_type.h"
-#include "rename_branch.h"
+void regis_telephone();
+void regis_tyj();
 
 std::string first_arg;
 std::string second_arg;
@@ -43,7 +44,8 @@ std::string exec(const char *cmd) {
 }
 
 void regis(){
-    table["rename-branch"] = rename_branch;
+    regis_telephone();
+    regis_tyj();
 }
 
 inline void get_cwd(){

@@ -6,6 +6,7 @@
 #define GITME_RENAME_BRANCH_H
 
 #include <string>
+#include <iostream>
 
 #include "gitme_type.h"
 
