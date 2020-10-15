@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <map>
 
+#define GITME_VERSION "0.1"
 #define HELP "-help"
 #define NC "\033[0m"
 #define SP " "

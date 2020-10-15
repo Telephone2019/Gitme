@@ -52,13 +52,14 @@ void init(){
 }
 
 void show_usage(){
+    std::cout << std::endl << "Gitme Version " GITME_VERSION << std::endl << std::endl;
     char usage[] = "a subcommand required: (one of these)";
     std::cout << usage << std::endl;
     std::cout << ORANGE;
     for (auto &i : table){
         std::cout << i.first << std::endl;
     }
-    std::cout << NC;
+    std::cout << NC << std::endl;
 }
 
 int main(int argc, char **argv) {
@@ -75,7 +76,7 @@ int main(int argc, char **argv) {
 
     std::string git_res = std::move(exec("git --version"));
     if (git_res.find("version") == std::string::npos) {
-        std::cout << "error: git not found" << std::endl;
+        std::cout << RED << "error: " << NC << "git not found, did you forget to install git?" << std::endl;
         return 1;
     }
 
