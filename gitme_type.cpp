@@ -4,7 +4,7 @@
 
 #include "gitme_type.h"
 
-std::string exec(const char *cmd) {
+std::string exec(const char *cmd, int &exit_code) {
     char c;
     std::string result;
     FILE *pipe = popen(cmd, "r");
@@ -12,11 +12,11 @@ std::string exec(const char *cmd) {
     while (c = fgetc(pipe), c != EOF) {
         result.append(1, c);
     }
-    pclose(pipe);
+    exit_code = pclose(pipe);
     return std::move(result);
 }
 
-std::string exec(std::string const &cmd) {
+std::string exec(std::string const &cmd, int &exit_code) {
     char c;
     std::string result;
     FILE *pipe = popen(cmd.c_str(), "r");
@@ -24,6 +24,15 @@ std::string exec(std::string const &cmd) {
     while (c = fgetc(pipe), c != EOF) {
         result.append(1, c);
     }
-    pclose(pipe);
+    exit_code = pclose(pipe);
     return std::move(result);
 }
+
+bool arg::void_validate(std::string const &value){
+    return !value.empty();
+}
+bool arg::optimistic_validate(std::string const &value){
+    return true;
+}
+
+int exec_exit_code_ = 0;

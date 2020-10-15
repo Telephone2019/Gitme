@@ -17,9 +17,11 @@
 
 typedef std::map<std::string, std::string> args_table_type;
 
-std::string exec(const char *cmd);
+extern int exec_exit_code_;
 
-std::string exec(std::string const &cmd);
+std::string exec(const char *cmd, int &exit_code = exec_exit_code_);
+
+std::string exec(std::string const &cmd, int &exit_code = exec_exit_code_);
 
 class arg {
 public:
@@ -33,12 +35,8 @@ public:
             :
             name(name), value(value), tip(tip), validate(validate){}
 
-    static bool void_validate(std::string const &value){
-        return !value.empty();
-    }
-    static bool optimistic_validate(std::string const &value){
-        return true;
-    }
+    static bool void_validate(std::string const &value);
+    static bool optimistic_validate(std::string const &value);
 };
 
 #endif //GITME_GITME_TYPE_H

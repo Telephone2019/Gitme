@@ -45,8 +45,9 @@ int rename_branch(const args_table_type &args_table){
         force_flag = "-m";
     std::string res;
     res.append("git branch ").append(force_flag).append(" ").append(args[0].value).append(" ").append(args[1].value);
-    std::cout << exec(res);
-    return 0;
+    int res_code;
+    std::cout << exec("gitme", res_code);
+    return res_code;
 }
 
 #endif //GITME_RENAME_BRANCH_H
