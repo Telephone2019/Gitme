@@ -20,7 +20,7 @@ void clean(){
 
 std::pair<bool, std::pair<std::string, std::string>> parse(const std::string &text){
     std::pair<bool, std::pair<std::string, std::string>> res(false, (std::pair<std::string, std::string>){"", ""});
-    int index = text.find_first_of('=');
+    int index = text.find_first_of(':');
     if (index == std::string::npos)
         return std::move(res);
     res.first = true;
@@ -29,18 +29,6 @@ std::pair<bool, std::pair<std::string, std::string>> parse(const std::string &te
     if (index < text.length() - 1)
         res.second.second += text.substr(index + 1, text.length() - 1 - index);
     return std::move(res);
-}
-
-std::string exec(const char *cmd) {
-    char c;
-    std::string result;
-    FILE *pipe = popen(cmd, "r");
-    if (!pipe) throw std::runtime_error("popen() failed!");
-    while (c = fgetc(pipe), c != EOF) {
-        result.append(1, c);
-    }
-    pclose(pipe);
-    return std::move(result);
 }
 
 void regis(){
