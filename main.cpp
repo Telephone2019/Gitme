@@ -18,16 +18,21 @@ void clean(){
     other_args.clear();
 }
 
-std::pair<bool, std::pair<std::string, std::string>> parse(const std::string &text){
-    std::pair<bool, std::pair<std::string, std::string>> res(false, (std::pair<std::string, std::string>){"", ""});
+std::pair<bool, std::pair<std::string, std::string>> parse(const std::string &text) {
+    std::pair<bool, std::pair<std::string, std::string>> res(false, (std::pair<std::string, std::string>) {"", ""});
     int index = text.find_first_of(':');
-    if (index == std::string::npos)
+    bool help = (text == HELP);
+    if (index == std::string::npos && !help)
         return std::move(res);
     res.first = true;
-    if (index > 0)
-        res.second.first += text.substr(0, index);
-    if (index < text.length() - 1)
-        res.second.second += text.substr(index + 1, text.length() - 1 - index);
+    if (!help) {
+        if (index > 0)
+            res.second.first += text.substr(0, index);
+        if (index < text.length() - 1)
+            res.second.second += text.substr(index + 1, text.length() - 1 - index);
+    } else{
+        res.second.first += text;
+    }
     return std::move(res);
 }
 

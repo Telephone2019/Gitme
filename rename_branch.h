@@ -16,11 +16,18 @@ namespace {
     }
 }
 
-int rename_branch(const args_table_type &args_table){
+int rename_branch(const args_table_type &args_table) {
     arg args[] = {
-            {"-old-branch", "", "parameter required:" SP ORANGE"old-branch" NC SP"the old branch to be renamed", arg::optimistic_validate},
-            {"-new-name", "", "parameter required:" SP ORANGE"new-name" NC SP"the new branch name"},
-            {"-force", "false", "parameter required:" SP ORANGE"force" NC SP"Should it be forced to rename if a branch with the same name as the new name already exists?(" LIGHT_BLUE"true/false" NC")", validate}
+            {HELP,          "non",   ""},
+            {"-old-branch", "",      "optional parameter:" SP LIGHT_GREEN
+                                     "old-branch" NC SP
+                                     "the old branch to be renamed <default: " LIGHT_PURPLE"current git branch" NC">", arg::optimistic_validate},
+            {"-new-name",   "",      "parameter required:" SP ORANGE
+                                     "new-name  " NC SP
+                                     "the new branch name"},
+            {"-force",      "false", "optional parameter:" SP LIGHT_GREEN
+                                     "force     " NC SP
+                                     "Should it be forced to rename if a branch with the same name as the new name already exists?(" LIGHT_BLUE"true/false" NC") <default: " LIGHT_PURPLE"false" NC">", validate}
     };
     for (auto &i : args_table){
         for (auto &j : args){
@@ -30,21 +37,29 @@ int rename_branch(const args_table_type &args_table){
             }
         }
     }
+    if (args[0].value.empty()){
+        std::cout << std::endl << "Usage:" << std::endl << std::endl;
+        for (auto &i : args){
+            if (i.name != HELP)
+                std::cout << i.tip << std::endl << std::endl;
+        }
+        return 0;
+    }
     bool wrong = false;
     for (auto &i : args){
         if (!i.validate(i.value)) {
-            std::cout << i.tip << std::endl;
+            std::cout << RED << "error: " << NC << i.tip << std::endl;
             wrong = true;
         }
     }
     if (wrong) return 1;
     const char *force_flag;
-    if (args[2].value == "true")
+    if (args[3].value == "true")
         force_flag = "-M";
     else
         force_flag = "-m";
     std::string res;
-    res.append("git branch ").append(force_flag).append(" ").append(args[0].value).append(" ").append(args[1].value);
+    res.append("git branch ").append(force_flag).append(" ").append(args[1].value).append(" ").append(args[2].value);
     int res_code;
     std::cout << exec(res, res_code);
     return res_code;

@@ -10,10 +10,19 @@
 #include <stdexcept>
 #include <map>
 
+#define HELP "-help"
 #define NC "\033[0m"
 #define SP " "
 #define ORANGE "\033[0;33m"
+#define GREEN "\033[0;32m"
+#define LIGHT_GREEN "\033[1;32m"
 #define LIGHT_BLUE "\033[1;34m"
+#define CYAN "\033[0;36m"
+#define LIGHT_CYAN "\033[1;36m"
+#define PURPLE "\033[0;35m"
+#define LIGHT_PURPLE "\033[1;35m"
+#define RED "\033[0;31m"
+#define LIGHT_RED "\033[1;31m"
 
 typedef std::map<std::string, std::string> args_table_type;
 
