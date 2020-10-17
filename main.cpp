@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
     for (int i = 2; i < argc; ++i) {
         auto arg = std::move(parse(argv[i]));
         if (arg.first)
-            other_args.insert(arg.second);
+            other_args.insert(std::move(arg.second));
     }
 
     std::string git_res = std::move(exec("git --version"));
