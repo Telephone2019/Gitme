@@ -5,8 +5,10 @@
 #include <map>
 
 #include "gitme_type.h"
+#include "show_branches.h"
 
 extern std::map<std::string, int(*)(const args_table_type &)> table;
 
 void regis_tyj(){
+    table["show-local-branches"] = show_local_branches;
 }
