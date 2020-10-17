@@ -15,7 +15,7 @@ _gitme () # By convention, the function name starts with an '_'.
 
   case "$line" in
 PNAME_HERE
-    gitme+([[:space:]])*([a-z_]) )
+    gitme+([[:space:]])*([a-z_\"\'-]) )
       mapfile -t COMPREPLY < <(compgen -W "$subcommands" -- "$cur");;
   esac
 
