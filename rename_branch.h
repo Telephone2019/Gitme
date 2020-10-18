@@ -77,7 +77,10 @@ int rename_branch(const args_table_type &args_table) {
             wrong = true;
         }
     }
-    if (wrong) return 1;
+    if (wrong) {
+        std::cout << "(" << LIGHT_RED << "strict mode: " << LIGHT_BLUE << args[4].value << NC << ")" << NC << std::endl;
+        return 1;
+    }
     const char *force_flag;
     if (args[2].value == "true")
         force_flag = "-M";
