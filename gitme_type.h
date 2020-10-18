@@ -41,11 +41,12 @@ public:
     std::string value;
     const char *tip;
     bool (*validate)(std::string const &);
+    bool edited;
 
 public:
-    arg(const char *name, const char *value, const char *tip, bool (*validate)(std::string const &) = arg::void_validate)
+    arg(const char *name, const char *value, const char *tip, bool (*validate)(std::string const &) = arg::void_validate, bool edited = false)
             :
-            name(name), value(value), tip(tip), validate(validate){}
+            name(name), value(value), tip(tip), validate(validate), edited(edited){}
 
     static bool void_validate(std::string const &value);
     static bool optimistic_validate(std::string const &value);

@@ -38,18 +38,21 @@ int rename_branch(const args_table_type &args_table) {
                                                "(" LIGHT_BLUE"true/false" NC") <default: " LIGHT_PURPLE"false" NC">",
                     bool_validate},
             {HELP,                "not-empty", "",
-                    arg::optimistic_validate},
+                    arg::optimistic_validate,
+                    true},
             {"-" STRICT_MODE_RAW, "on",
                                                "mode parameter:    " SP LIGHT_RED
                                                STRICT_MODE_RAW NC SP
                                                "if on, all the optional parameters are mandatory"
                                                "(" LIGHT_BLUE"on/off" NC") <default: " LIGHT_PURPLE"on" NC">",
-                    mode_validate}
+                    mode_validate,
+                    true}
     };
     for (auto &i : args_table){
         for (auto &j : args){
             if (j.name == i.first) {
                 j.value = i.second;
+                j.edited = true;
                 break;
             }
         }
@@ -62,9 +65,14 @@ int rename_branch(const args_table_type &args_table) {
         }
         return 0;
     }
+    if (!args[4].validate(args[4].value)){
+        std::cout << LIGHT_RED << "error: " << NC << args[4].tip << std::endl;
+        return 1;
+    }
+    bool strict_mode = (args[4].value == "on");
     bool wrong = false;
     for (auto &i : args){
-        if (!i.validate(i.value)) {
+        if ((!i.validate(i.value)) || (strict_mode && (!i.edited))) {
             std::cout << LIGHT_RED << "error: " << NC << i.tip << std::endl;
             wrong = true;
         }
