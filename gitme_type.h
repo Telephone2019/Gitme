@@ -12,6 +12,7 @@
 
 #define GITME_VERSION "0.1"
 #define HELP "-help"
+#define STRICT_MODE_RAW "strict-mode"
 #define NC "\033[0m"
 #define SP " "
 #define ORANGE "\033[0;33m"
@@ -24,6 +25,7 @@
 #define LIGHT_PURPLE "\033[1;35m"
 #define RED "\033[0;31m"
 #define LIGHT_RED "\033[1;31m"
+#define GRAY "\033[0;37m"
 
 typedef std::map<std::string, std::string> args_table_type;
 
