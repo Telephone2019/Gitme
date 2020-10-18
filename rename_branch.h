@@ -86,6 +86,8 @@ int rename_branch(const args_table_type &args_table) {
     std::string res;
     res.append("git branch ").append(force_flag).append(" ").append(args[0].value).append(" ").append(args[1].value);
     int res_code;
+    std::cout << YELLOW << "the git command is => " << NC << res << std::endl;
+    std::cout << LIGHT_BLUE << "the git command output: " << NC << std::endl;
     std::cout << exec(res, res_code);
     return res_code;
 }

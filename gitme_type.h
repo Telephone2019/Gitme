@@ -16,6 +16,7 @@
 #define NC "\033[0m"
 #define SP " "
 #define ORANGE "\033[0;33m"
+#define YELLOW "\033[1;33m"
 #define GREEN "\033[0;32m"
 #define LIGHT_GREEN "\033[1;32m"
 #define LIGHT_BLUE "\033[1;34m"
