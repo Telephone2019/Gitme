@@ -14,7 +14,7 @@ _gitme () # By convention, the function name starts with an '_'.
   line=${COMP_LINE}
 
   case "$line" in
-gitme+([[:space:]])rename-branch+([[:space:]])*([a-z_\"\'-]) )
+gitme+([[:space:]])rename-branch+([[:space:]])*([a-z_\"\'[:space:]:-])[^:] )
 mapfile -t COMPREPLY < <(compgen -W "-old-branch: -new-name: -force: -help -strict-mode:" -- "$cur");;
 
 
