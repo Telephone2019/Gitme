@@ -12,9 +12,11 @@
 
 #define GITME_VERSION "0.1"
 #define HELP "-help"
+#define STRICT_MODE_RAW "strict-mode"
 #define NC "\033[0m"
 #define SP " "
 #define ORANGE "\033[0;33m"
+#define YELLOW "\033[1;33m"
 #define GREEN "\033[0;32m"
 #define LIGHT_GREEN "\033[1;32m"
 #define LIGHT_BLUE "\033[1;34m"
@@ -24,6 +26,7 @@
 #define LIGHT_PURPLE "\033[1;35m"
 #define RED "\033[0;31m"
 #define LIGHT_RED "\033[1;31m"
+#define GRAY "\033[0;37m"
 
 typedef std::map<std::string, std::string> args_table_type;
 
@@ -39,11 +42,12 @@ public:
     std::string value;
     const char *tip;
     bool (*validate)(std::string const &);
+    bool edited;
 
 public:
-    arg(const char *name, const char *value, const char *tip, bool (*validate)(std::string const &) = arg::void_validate)
+    arg(const char *name, const char *value, const char *tip, bool (*validate)(std::string const &) = arg::void_validate, bool edited = false)
             :
-            name(name), value(value), tip(tip), validate(validate){}
+            name(name), value(value), tip(tip), validate(validate), edited(edited){}
 
     static bool void_validate(std::string const &value);
     static bool optimistic_validate(std::string const &value);
