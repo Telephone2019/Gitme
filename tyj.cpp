@@ -5,7 +5,7 @@
 #include <map>
 
 #include "gitme_type.h"
-#include "show_branches.h"
+#include "show_local_branches.h"
 
 extern std::map<std::string, int(*)(const args_table_type &)> table;
 

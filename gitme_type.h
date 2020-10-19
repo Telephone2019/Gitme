@@ -51,6 +51,8 @@ public:
 
     static bool void_validate(std::string const &value);
     static bool optimistic_validate(std::string const &value);
+    static bool bool_validate(std::string const &value);
+    static bool mode_validate(std::string const &value);
 };
 
 #endif //GITME_GITME_TYPE_H
