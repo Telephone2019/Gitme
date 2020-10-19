@@ -5,7 +5,7 @@ _gitme () # By convention, the function name starts with an '_'.
   # By convention, it's named "cur" but this isn't strictly necessary.
   local line
   # Pointer to current completion line.
-  local subcommands="rename-branch  "
+  local subcommands="rename-branch  show-local-branches  "
 
   COMPREPLY=()
   # Array variable storing the possible completions.
@@ -16,6 +16,9 @@ _gitme () # By convention, the function name starts with an '_'.
   case "$line" in
 gitme+([[:space:]])rename-branch+([[:space:]])*([a-z_\"\'[:space:]:-])[^:] )
 mapfile -t COMPREPLY < <(compgen -W "-old-branch: -new-name: -force: -help -strict-mode:" -- "$cur");;
+
+gitme+([[:space:]])show-local-branches+([[:space:]])*([a-z_\"\'[:space:]:-])[^:] )
+mapfile -t COMPREPLY < <(compgen -W "-verbose: -help -strict-mode:" -- "$cur");;
 
 
     gitme+([[:space:]])*([a-z_\"\'-]) )
