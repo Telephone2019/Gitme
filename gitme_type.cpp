@@ -34,5 +34,11 @@ bool arg::void_validate(std::string const &value){
 bool arg::optimistic_validate(std::string const &value){
     return true;
 }
+bool arg::bool_validate(std::string const &value){
+    return !(value.empty() || (value != "true" && value != "false"));
+}
+bool arg::mode_validate(std::string const &value){
+    return !(value.empty() || (value != "on" && value != "off"));
+}
 
 int exec_exit_code_ = 0;

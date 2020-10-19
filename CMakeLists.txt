@@ -25,7 +25,7 @@ SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 project(Gitme)
 
 # 添加可执行目标
-add_executable(Gitme_main main.cpp rename_branch.h gitme_type.h tyj.cpp telephone.cpp gitme_type.cpp show_branches.h)
+add_executable(Gitme_main main.cpp rename_branch.h gitme_type.h tyj.cpp telephone.cpp gitme_type.cpp show_local_branches.h)
 # rename target output bin
 set_target_properties(Gitme_main PROPERTIES OUTPUT_NAME gitme)
 

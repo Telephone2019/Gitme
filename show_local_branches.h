@@ -1,31 +1,20 @@
 //
-// Created by terry on 10/13/20.
+// Created by yjt on 10/16/20.
 //
 
-#ifndef GITME_RENAME_BRANCH_H
-#define GITME_RENAME_BRANCH_H
-
+#ifndef GITME_SHOW_LOCAL_BRANCHES_H
+#define GITME_SHOW_LOCAL_BRANCHES_H
 #include <string>
 #include <iostream>
 
 #include "gitme_type.h"
 
-int rename_branch(const args_table_type &args_table) {
+int show_local_branches(const args_table_type &args_table){//wrong parameter such as: XXX XXX: should be banned but -XXX or -xxx: need to show useful commands
     arg args[] = {
-            {"-old-branch",       "",
+            {"-verbose",          "false",
                                                "optional parameter:" SP LIGHT_GREEN
-                                               "old-branch " NC SP
-                                               "the old branch to be renamed <default: " LIGHT_PURPLE"current git branch" NC">",
-                    arg::optimistic_validate},
-            {"-new-name",         "",
-                                               "parameter required:" SP ORANGE
-                                               "new-name   " NC SP
-                                               "the new branch name"
-            },
-            {"-force",            "false",
-                                               "optional parameter:" SP LIGHT_GREEN
-                                               "force      " NC SP
-                                               "Should it be forced to rename if a branch with the same name as the new name already exists?"
+                                               "verbose    " NC SP
+                                               "Show details of your local branches"
                                                "(" LIGHT_BLUE"true/false" NC") <default: " LIGHT_PURPLE"false" NC">",
                     arg::bool_validate},
             {HELP,                "not-empty", "",
@@ -40,28 +29,28 @@ int rename_branch(const args_table_type &args_table) {
                     true}
     };
     // ====== Show help / Validate parameters
-    for (auto &i : args_table){// read parameters
-        for (auto &j : args){
-            if (j.name == i.first) {
+    for (auto &i : args_table) {// read parameters
+        for (auto &j : args) {
+            if (i.first == j.name) {
                 j.value = i.second;
                 j.edited = true;
                 break;
             }
         }
     }
-    if (args[3].value.empty()){// show help
+    if (args[1].value.empty()) {// show help
         std::cout << std::endl << "Usage:" << std::endl << std::endl;
-        for (auto &i : args){
+        for (auto &i : args) {
             if (i.name != HELP)
                 std::cout << i.tip << std::endl << std::endl;
         }
         return 0;
     }
-    if (!args[4].validate(args[4].value)){// validate strict-mode parameter
-        std::cout << LIGHT_RED << "error: " << NC << args[4].tip << std::endl;
+    if (!args[2].validate(args[2].value)){// validate strict-mode parameter
+        std::cout << LIGHT_RED << "error: " << NC << args[2].tip << std::endl;
         return 1;
     }
-    bool strict_mode = (args[4].value == "on");
+    bool strict_mode = (args[2].value == "on");
     bool wrong = false;
     for (auto &i : args){
         if ((!i.validate(i.value)) || (strict_mode && (!i.edited))) {
@@ -70,17 +59,15 @@ int rename_branch(const args_table_type &args_table) {
         }
     }
     if (wrong) {
-        std::cout << "(" << LIGHT_RED << "strict mode: " << LIGHT_BLUE << args[4].value << NC << ")" << NC << std::endl;
+        std::cout << "(" << LIGHT_RED << "strict mode: " << LIGHT_BLUE << args[2].value << NC << ")" << NC << std::endl;
         return 1;
     }
     // ====== Generate git command
-    const char *force_flag;
-    if (args[2].value == "true")
-        force_flag = "-M";
-    else
-        force_flag = "-m";
     std::string res;
-    res.append("git branch ").append(force_flag).append(" ").append(args[0].value).append(" ").append(args[1].value);
+    res.append("git branch");
+    if(args[0].value=="true"){
+        res.append(" -vv");
+    }
     // ====== Execute git command
     int res_code;
     std::cout << YELLOW << "the git command is => " << NC << res << std::endl;
@@ -89,4 +76,4 @@ int rename_branch(const args_table_type &args_table) {
     return res_code;
 }
 
-#endif //GITME_RENAME_BRANCH_H
+#endif //GITME_SHOW_LOCAL_BRANCHES_H
