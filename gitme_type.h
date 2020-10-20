@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <map>
 
+#define NORMAL 2
 #define GITME_VERSION "0.1"
 #define HELP "-help"
 #define STRICT_MODE_RAW "strict-mode"
@@ -27,6 +28,14 @@
 #define RED "\033[0;31m"
 #define LIGHT_RED "\033[1;31m"
 #define GRAY "\033[0;37m"
+
+#define PROCESS(ARG_ARRAY,ARG_TABLE,HELP_INDEX,STRICT_MODE_INDEX)  \
+int process_res_telephone__ = before(ARG_TABLE, ARG_ARRAY, sizeof(ARG_ARRAY) / sizeof(arg), HELP_INDEX, STRICT_MODE_INDEX); \
+if (process_res_telephone__ != NORMAL) \
+    return process_res_telephone__;
+
+#define EXE_GIT(STRING_GIT_COMMAND)  \
+    return after(STRING_GIT_COMMAND);
 
 typedef std::map<std::string, std::string> args_table_type;
 
@@ -54,5 +63,9 @@ public:
     static bool bool_validate(std::string const &value);
     static bool mode_validate(std::string const &value);
 };
+
+int before(const args_table_type &args_table, arg *args, int arg_num, int help_index, int strict_mode_index);
+
+int after(std::string const &git_cmd);
 
 #endif //GITME_GITME_TYPE_H

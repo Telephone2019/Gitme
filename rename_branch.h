@@ -39,40 +39,7 @@ int rename_branch(const args_table_type &args_table) {
                     arg::mode_validate,
                     true}
     };
-    // ====== Show help / Validate parameters
-    for (auto &i : args_table){// read parameters
-        for (auto &j : args){
-            if (j.name == i.first) {
-                j.value = i.second;
-                j.edited = true;
-                break;
-            }
-        }
-    }
-    if (args[3].value.empty()){// show help
-        std::cout << std::endl << "Usage:" << std::endl << std::endl;
-        for (auto &i : args){
-            if (i.name != HELP)
-                std::cout << i.tip << std::endl << std::endl;
-        }
-        return 0;
-    }
-    if (!args[4].validate(args[4].value)){// validate strict-mode parameter
-        std::cout << LIGHT_RED << "error: " << NC << args[4].tip << std::endl;
-        return 1;
-    }
-    bool strict_mode = (args[4].value == "on");
-    bool wrong = false;
-    for (auto &i : args){
-        if ((!i.validate(i.value)) || (strict_mode && (!i.edited))) {
-            std::cout << LIGHT_RED << "error: " << NC << i.tip << std::endl;
-            wrong = true;
-        }
-    }
-    if (wrong) {
-        std::cout << "(" << LIGHT_RED << "strict mode: " << LIGHT_BLUE << args[4].value << NC << ")" << NC << std::endl;
-        return 1;
-    }
+    PROCESS(args, args_table, 3, 4)
     // ====== Generate git command
     const char *force_flag;
     if (args[2].value == "true")
@@ -81,12 +48,8 @@ int rename_branch(const args_table_type &args_table) {
         force_flag = "-m";
     std::string res;
     res.append("git branch ").append(force_flag).append(" ").append(args[0].value).append(" ").append(args[1].value);
-    // ====== Execute git command
-    int res_code;
-    std::cout << YELLOW << "the git command is => " << NC << res << std::endl;
-    std::cout << LIGHT_BLUE << "the git command output: " << NC << std::endl;
-    std::cout << exec(res, res_code);
-    return res_code;
+    // ===========================
+    EXE_GIT(res)
 }
 
 #endif //GITME_RENAME_BRANCH_H
