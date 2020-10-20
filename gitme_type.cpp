@@ -74,8 +74,8 @@ int after(std::string const &git_cmd){
     // ====== Execute git command
     int res_code;
     std::cout << YELLOW << "the git command is => " << NC << git_cmd << std::endl;
-    std::cout << LIGHT_BLUE << "the git command output: " << NC << std::endl;
-    std::cout << exec(git_cmd, res_code);
+    std::cout << LIGHT_BLUE << "the git command output: " << NC << std::endl << std::endl;
+    std::cout << exec(git_cmd, res_code) << std::endl;
     return res_code;
 }
 

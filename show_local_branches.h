@@ -31,9 +31,9 @@ int show_local_branches(const args_table_type &args_table){//wrong parameter suc
     PROCESS(args, args_table, 1, 2)
     // ====== Generate git command
     std::string res;
-    res.append("git branch");
+    res.append("git" GIT_COLOR "branch");
     if(args[0].value=="true"){
-        res.append(" -vv");
+        res.append(SP"-vv");
     }
     // ===========================
     EXE_GIT(res)

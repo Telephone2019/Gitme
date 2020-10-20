@@ -14,6 +14,7 @@
 #define GITME_VERSION "0.1"
 #define HELP "-help"
 #define STRICT_MODE_RAW "strict-mode"
+#define GIT_COLOR " -c color.ui=always "
 #define NC "\033[0m"
 #define SP " "
 #define ORANGE "\033[0;33m"

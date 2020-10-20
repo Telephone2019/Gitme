@@ -43,11 +43,11 @@ int rename_branch(const args_table_type &args_table) {
     // ====== Generate git command
     const char *force_flag;
     if (args[2].value == "true")
-        force_flag = "-M";
+        force_flag = SP"-M";
     else
-        force_flag = "-m";
+        force_flag = SP"-m";
     std::string res;
-    res.append("git branch ").append(force_flag).append(" ").append(args[0].value).append(" ").append(args[1].value);
+    res.append("git" GIT_COLOR "branch").append(force_flag).append(SP).append(args[0].value).append(SP).append(args[1].value);
     // ===========================
     EXE_GIT(res)
 }
