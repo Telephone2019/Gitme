@@ -47,6 +47,8 @@ std::string exec(const char *cmd, int &exit_code = exec_exit_code_);
 
 std::string exec(std::string const &cmd, int &exit_code = exec_exit_code_);
 
+bool in_git_repos();
+
 class arg {
 public:
     std::string name;
