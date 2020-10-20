@@ -1,5 +1,19 @@
-gitme+([[:space:]])rename-branch+([[:space:]])*([a-z_\\"\\'[:space:]:-])[^:] )
+gitme+([[:space:]])rename-branch+([[:space:]])*(?)[^:] | gitme+([[:space:]])rename-branch+([[:space:]]) )
 mapfile -t COMPREPLY < <(compgen -W "-old-branch: -new-name: -force: -help -strict-mode:" -- "$cur");;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

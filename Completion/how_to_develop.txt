@@ -8,7 +8,7 @@
 1. For each subcommand, it will have two lines like below in the pname.sh. Just replace
    the SUB_COMMAND and PARAMETER to use the template below.
 
-gitme+([[:space:]])SUB_COMMAND+([[:space:]])*([a-z_\\"\\'[:space:]:-])[^:] )
+gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)[^:] | gitme+([[:space:]])SUB_COMMAND+([[:space:]]) )
 mapfile -t COMPREPLY < <(compgen -W "PARAMETER PARAMETER PARAMETER PARAMETER" -- "$cur");;
 
 2. Do not have space(s)/tab(s) at the beginning of each line.

@@ -28,52 +28,15 @@ int show_local_branches(const args_table_type &args_table){//wrong parameter suc
                     arg::mode_validate,
                     true}
     };
-    // ====== Show help / Validate parameters
-    for (auto &i : args_table) {// read parameters
-        for (auto &j : args) {
-            if (i.first == j.name) {
-                j.value = i.second;
-                j.edited = true;
-                break;
-            }
-        }
-    }
-    if (args[1].value.empty()) {// show help
-        std::cout << std::endl << "Usage:" << std::endl << std::endl;
-        for (auto &i : args) {
-            if (i.name != HELP)
-                std::cout << i.tip << std::endl << std::endl;
-        }
-        return 0;
-    }
-    if (!args[2].validate(args[2].value)){// validate strict-mode parameter
-        std::cout << LIGHT_RED << "error: " << NC << args[2].tip << std::endl;
-        return 1;
-    }
-    bool strict_mode = (args[2].value == "on");
-    bool wrong = false;
-    for (auto &i : args){
-        if ((!i.validate(i.value)) || (strict_mode && (!i.edited))) {
-            std::cout << LIGHT_RED << "error: " << NC << i.tip << std::endl;
-            wrong = true;
-        }
-    }
-    if (wrong) {
-        std::cout << "(" << LIGHT_RED << "strict mode: " << LIGHT_BLUE << args[2].value << NC << ")" << NC << std::endl;
-        return 1;
-    }
+    PROCESS(args, args_table, 1, 2)
     // ====== Generate git command
     std::string res;
-    res.append("git branch");
+    res.append("git" GIT_COLOR "branch");
     if(args[0].value=="true"){
-        res.append(" -vv");
+        res.append(SP"-vv");
     }
-    // ====== Execute git command
-    int res_code;
-    std::cout << YELLOW << "the git command is => " << NC << res << std::endl;
-    std::cout << LIGHT_BLUE << "the git command output: " << NC << std::endl;
-    std::cout << exec(res, res_code);
-    return res_code;
+    // ===========================
+    EXE_GIT(res)
 }
 
 #endif //GITME_SHOW_LOCAL_BRANCHES_H
