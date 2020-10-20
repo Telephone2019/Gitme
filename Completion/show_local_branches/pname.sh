@@ -23,3 +23,4 @@ mapfile -t COMPREPLY < <(compgen -W "-verbose: -help -strict-mode:" -- "$cur");;
 
 
 
+
