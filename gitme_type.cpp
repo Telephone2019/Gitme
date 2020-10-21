@@ -8,7 +8,7 @@
 std::string exec(const char *cmd, int &exit_code) {
     char c;
     std::string result;
-    FILE *pipe = popen(cmd, "r");
+    FILE *pipe = popen(((std::string)(cmd)).append(" 2>&1").c_str(), "r");
     if (!pipe) throw std::runtime_error("popen() failed!");
     while (c = fgetc(pipe), c != EOF) {
         result.append(1, c);
@@ -20,13 +20,17 @@ std::string exec(const char *cmd, int &exit_code) {
 std::string exec(std::string const &cmd, int &exit_code) {
     char c;
     std::string result;
-    FILE *pipe = popen(cmd.c_str(), "r");
+    FILE *pipe = popen(((std::string)(cmd)).append(" 2>&1").c_str(), "r");
     if (!pipe) throw std::runtime_error("popen() failed!");
     while (c = fgetc(pipe), c != EOF) {
         result.append(1, c);
     }
     exit_code = pclose(pipe);
     return std::move(result);
+}
+
+bool in_git_repos(){
+    return ( exec("git rev-parse --is-inside-work-tree").find("true") != std::string::npos );
 }
 
 int before(const args_table_type &args_table, arg *args, int arg_num, int help_index, int strict_mode_index){

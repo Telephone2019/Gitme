@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
 
     std::string git_res = std::move(exec("git --version"));
     if (git_res.find("version") == std::string::npos) {
-        std::cout << LIGHT_RED << "error: " << NC << "git not found, did you forget to install git?" << std::endl;
+        std::cout << LIGHT_RED << "error: " << NC << "git not found, did you forget to " TIP_COLOR"install git" NC"?" << std::endl;
         return 1;
     }
 

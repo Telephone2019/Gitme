@@ -1,9 +1,9 @@
-==============================================================================================
+========================================================================================================================
 <subcommand.txt>:
 1. Each single line in subcommand.txt contains a subcommand.
 2. Do not have space(s)/tab(s) at the beginning of each line.
 3. Blank line(s) is acceptable, but it is best not to have blank line(s).
-==============================================================================================
+========================================================================================================================
 <pname.sh>:
 1. For each subcommand, it will have two lines like below in the pname.sh. Just replace
    the SUB_COMMAND and PARAMETER to use the template below.
@@ -13,4 +13,4 @@ mapfile -t COMPREPLY < <(compgen -W "PARAMETER PARAMETER PARAMETER PARAMETER" --
 
 2. Do not have space(s)/tab(s) at the beginning of each line.
 3. Blank line(s) is acceptable, but it is best not to have blank line(s).
-==============================================================================================
+========================================================================================================================
