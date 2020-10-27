@@ -74,3 +74,4 @@ int before(const args_table_type &args_table, arg *args, int arg_num, int help_i
 int after(std::string const &git_cmd);
 
 #endif //GITME_GITME_TYPE_H
+
