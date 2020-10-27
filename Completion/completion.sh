@@ -15,10 +15,10 @@ _gitme () # By convention, the function name starts with an '_'.
 
   case "$line" in
 gitme+([[:space:]])rename-branch+([[:space:]])*(?)[^:] | gitme+([[:space:]])rename-branch+([[:space:]]) )
-mapfile -t COMPREPLY < <(compgen -W "-old-branch: -new-name: -force: -help -strict-mode:" -- "$cur");;
+mapfile -t COMPREPLY < <(compgen -W "-help -old-branch: -old-branch:<branch-name> -new-name: -new-name:<branch-name> -force -force: -force:(true\ |\ false) -strict-mode -strict-mode: -strict-mode:(on\ |\ off)" -- "$cur");;
 
 gitme+([[:space:]])show-local-branches+([[:space:]])*(?)[^:] | gitme+([[:space:]])show-local-branches+([[:space:]]) )
-mapfile -t COMPREPLY < <(compgen -W "-verbose: -help -strict-mode:" -- "$cur");;
+mapfile -t COMPREPLY < <(compgen -W "-help -verbose -verbose: -verbose:(true\ |\ false) -strict-mode -strict-mode: -strict-mode:(on\ |\ off)" -- "$cur");;
 
 
     gitme+([[:space:]])*([a-z_\"\'-]) )

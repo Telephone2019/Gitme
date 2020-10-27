@@ -12,30 +12,30 @@
 
 int rename_branch(const args_table_type &args_table) {
     arg args[] = {
-            {"-old-branch",       "",
-                                               "optional parameter:" SP LIGHT_GREEN
-                                               "old-branch " NC SP
-                                               "the old branch to be renamed <default: " LIGHT_PURPLE"current git branch" NC">",
+            {"-old-branch",       "",          "",
+                                                   "optional parameter:" SP LIGHT_GREEN
+                                                   "old-branch " NC SP
+                                                   "the old branch to be renamed <default: " LIGHT_PURPLE"current git branch" NC">",
                     arg::optimistic_validate},
-            {"-new-name",         "",
-                                               "parameter required:" SP ORANGE
-                                               "new-name   " NC SP
-                                               "the new branch name"
+            {"-new-name",         "",          "",
+                                                   "parameter required:" SP ORANGE
+                                                   "new-name   " NC SP
+                                                   "the new branch name"
             },
-            {"-force",            "false",
-                                               "optional parameter:" SP LIGHT_GREEN
-                                               "force      " NC SP
-                                               "Should it be forced to rename if a branch with the same name as the new name already exists?"
-                                               "(" LIGHT_BLUE"true/false" NC") <default: " LIGHT_PURPLE"false" NC">",
+            {"-force",            "false",     "true",
+                                                   "optional parameter:" SP LIGHT_GREEN
+                                                   "force      " NC SP
+                                                   "Should it be forced to rename if a branch with the same name as the new name already exists?"
+                                                   "(" LIGHT_BLUE"true/false" NC") <default: " LIGHT_PURPLE"false" NC">",
                     arg::bool_validate},
-            {HELP,                "not-empty", "",
+            {HELP,                "not-empty", "", "",
                     arg::optimistic_validate,
                     true},
-            {"-" STRICT_MODE_RAW, "on",
-                                               "mode parameter:    " SP LIGHT_RED
-                                               STRICT_MODE_RAW NC SP
-                                               "if on, all the optional parameters are mandatory"
-                                               "(" LIGHT_BLUE"on/off" NC") <default: " LIGHT_PURPLE"on" NC">",
+            {"-" STRICT_MODE_RAW, "on",        "on",
+                                                   "mode parameter:    " SP LIGHT_RED
+                                                   STRICT_MODE_RAW NC SP
+                                                   "if on, all the optional parameters are mandatory"
+                                                   "(" LIGHT_BLUE"on/off" NC") <default: " LIGHT_PURPLE"on" NC">",
                     arg::mode_validate,
                     true}
     };
