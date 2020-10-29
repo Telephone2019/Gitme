@@ -39,7 +39,7 @@ int before(const args_table_type &args_table, arg *args, int arg_num, int help_i
         for (int j_ = 0; j_ < arg_num; j_++){
             auto &j = args[j_];
             if (j.name == i.first) {
-                j.value = i.second;
+                j.value = ((i.second.empty())?(j.void_value):(i.second));
                 j.edited = true;
                 break;
             }

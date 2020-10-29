@@ -53,14 +53,15 @@ class arg {
 public:
     std::string name;
     std::string value;
+    const char *void_value;
     const char *tip;
     bool (*validate)(std::string const &);
     bool edited;
 
 public:
-    arg(const char *name, const char *value, const char *tip, bool (*validate)(std::string const &) = arg::void_validate, bool edited = false)
+    arg(const char *name, const char *value, const char *void_value, const char *tip, bool (*validate)(std::string const &) = arg::void_validate, bool edited = false)
             :
-            name(name), value(value), tip(tip), validate(validate), edited(edited){}
+            name(name), value(value), void_value(void_value), tip(tip), validate(validate), edited(edited){}
 
     static bool void_validate(std::string const &value);
     static bool optimistic_validate(std::string const &value);
