@@ -33,7 +33,10 @@ bool in_git_repos(){
     return ( exec("git rev-parse --is-inside-work-tree").find("true") != std::string::npos );
 }
 
-void escape_utf8(std::string &text){
+/**
+ * newline and tab will not be escaped
+ */
+std::string& escape_utf8(std::string &text){
     std::string new_text;
     for(auto i = text.begin(); i != text.end(); i++){
         switch (*i) {
@@ -145,6 +148,15 @@ void escape_utf8(std::string &text){
         }
     }
     text = std::move(new_text);
+    return text;
+}
+
+/**
+ * remove the first occurrence of color-config-code
+ */
+std::string& remove_color(std::string &text){
+    text.replace(text.find(GIT_COLOR), std::strlen(GIT_COLOR), "");
+    return text;
 }
 
 int before(const args_table_type &args_table, arg *args, int arg_num, int help_index, int strict_mode_index){
