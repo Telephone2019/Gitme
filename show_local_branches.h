@@ -15,7 +15,8 @@ int show_local_branches(const args_table_type &args_table){//wrong parameter suc
                                                    "optional parameter:" SP LIGHT_GREEN
                                                    "verbose    " NC SP
                                                    "Show details of your local branches"
-                                                   "(" LIGHT_BLUE"true/false" NC") <default: " LIGHT_PURPLE"false" NC">",
+                                                   "(" LIGHT_BLUE"true/false" NC") <default: " LIGHT_PURPLE"false" NC">"
+                                                   SP"[-verbose equals to -verbose:true]",
                     arg::bool_validate},
             {HELP,                "not-empty", "", "",
                     arg::optimistic_validate,
@@ -24,7 +25,8 @@ int show_local_branches(const args_table_type &args_table){//wrong parameter suc
                                                    "mode parameter:    " SP LIGHT_RED
                                                    STRICT_MODE_RAW NC SP
                                                    "if on, all the optional parameters are mandatory"
-                                                   "(" LIGHT_BLUE"on/off" NC") <default: " LIGHT_PURPLE"on" NC">",
+                                                   "(" LIGHT_BLUE"on/off" NC") <default: " LIGHT_PURPLE"on" NC">"
+                                                   SP"[-" STRICT_MODE_RAW " equals to -" STRICT_MODE_RAW ":on]",
                     arg::mode_validate,
                     true}
     };

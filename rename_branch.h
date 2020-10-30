@@ -26,7 +26,8 @@ int rename_branch(const args_table_type &args_table) {
                                                    "optional parameter:" SP LIGHT_GREEN
                                                    "force      " NC SP
                                                    "Should it be forced to rename if a branch with the same name as the new name already exists?"
-                                                   "(" LIGHT_BLUE"true/false" NC") <default: " LIGHT_PURPLE"false" NC">",
+                                                   "(" LIGHT_BLUE"true/false" NC") <default: " LIGHT_PURPLE"false" NC">"
+                                                   SP"[-force equals to -force:true]",
                     arg::bool_validate},
             {HELP,                "not-empty", "", "",
                     arg::optimistic_validate,
@@ -35,7 +36,8 @@ int rename_branch(const args_table_type &args_table) {
                                                    "mode parameter:    " SP LIGHT_RED
                                                    STRICT_MODE_RAW NC SP
                                                    "if on, all the optional parameters are mandatory"
-                                                   "(" LIGHT_BLUE"on/off" NC") <default: " LIGHT_PURPLE"on" NC">",
+                                                   "(" LIGHT_BLUE"on/off" NC") <default: " LIGHT_PURPLE"on" NC">"
+                                                   SP"[-" STRICT_MODE_RAW " equals to -" STRICT_MODE_RAW ":on]",
                     arg::mode_validate,
                     true}
     };
