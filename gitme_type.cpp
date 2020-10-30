@@ -152,10 +152,10 @@ std::string& escape_utf8(std::string &text){
 }
 
 /**
- * remove the first occurrence of color-config-code
+ * replace the first occurrence of color-config-code with a space
  */
 std::string& remove_color(std::string &text){
-    text.replace(text.find(GIT_COLOR), std::strlen(GIT_COLOR), "");
+    text.replace(text.find(GIT_COLOR), std::strlen(GIT_COLOR), " ");
     return text;
 }
 
