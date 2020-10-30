@@ -34,7 +34,8 @@ bool in_git_repos(){
 }
 
 /**
- * newline and tab will not be escaped
+ * newline(\r, \n) and tab(\v, \t) will not be escaped
+ * \r and \n will be discarded
  */
 std::string& escape_utf8(std::string &text){
     std::string new_text;
@@ -140,6 +141,10 @@ std::string& escape_utf8(std::string &text){
                 break;
             case '/':
                 new_text.append("/");
+                break;
+
+
+            case '\n': case '\r':
                 break;
 
 
