@@ -203,7 +203,8 @@ int before(const args_table_type &args_table, arg *args, int arg_num, int help_i
 int after(std::string const &git_cmd){
     // ====== Execute git command
     int res_code;
-    std::cout << YELLOW << "the git command is => " << NC << git_cmd << std::endl;
+    std::string no_color_git_cmd(git_cmd);
+    std::cout << YELLOW << "the git command is => " << NC << remove_color(no_color_git_cmd) << std::endl;
     std::cout << LIGHT_BLUE << "the git command output: " << NC << std::endl << std::endl;
     std::cout << exec(git_cmd, res_code) << std::endl;
     return res_code;
