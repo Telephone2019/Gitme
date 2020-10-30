@@ -33,6 +33,132 @@ bool in_git_repos(){
     return ( exec("git rev-parse --is-inside-work-tree").find("true") != std::string::npos );
 }
 
+/**
+ * newline and tab will not be escaped
+ */
+std::string& escape_utf8(std::string &text){
+    std::string new_text;
+    for(auto i = text.begin(); i != text.end(); i++){
+        switch (*i) {
+            case '`':
+                new_text.append("\\").append("`");
+                break;
+            case '~':
+                new_text.append("\\").append("~");
+                break;
+            case '!':
+                new_text.append("\\").append("!");
+                break;
+            case '@':
+                new_text.append("\\").append("@");
+                break;
+            case '#':
+                new_text.append("\\").append("#");
+                break;
+            case '$':
+                new_text.append("\\").append("$");
+                break;
+            case '&':
+                new_text.append("\\").append("&");
+                break;
+            case '*':
+                new_text.append("\\").append("*");
+                break;
+            case '(':
+                new_text.append("\\").append("(");
+                break;
+            case ')':
+                new_text.append("\\").append(")");
+                break;
+            case '+':
+                new_text.append("\\").append("+");
+                break;
+            case '\\':
+                new_text.append("\\").append("\\");
+                break;
+            case '|':
+                new_text.append("\\").append("|");
+                break;
+            case ']':
+                new_text.append("\\").append("]");
+                break;
+            case '}':
+                new_text.append("\\").append("}");
+                break;
+            case '[':
+                new_text.append("\\").append("[");
+                break;
+            case '{':
+                new_text.append("\\").append("{");
+                break;
+            case ';':
+                new_text.append("\\").append(";");
+                break;
+            case '\'':
+                new_text.append("\\").append("'");
+                break;
+            case '"':
+                new_text.append("\\").append("\"");
+                break;
+            case '?':
+                new_text.append("\\").append("?");
+                break;
+            case '.':
+                new_text.append("\\").append(".");
+                break;
+            case '>':
+                new_text.append("\\").append(">");
+                break;
+            case ',':
+                new_text.append("\\").append(",");
+                break;
+            case '<':
+                new_text.append("\\").append("<");
+                break;
+            case ' ':
+                new_text.append("\\").append(" ");
+                break;
+
+
+            case '%':
+                new_text.append("%");
+                break;
+            case '^':
+                new_text.append("^");
+                break;
+            case '-':
+                new_text.append("-");
+                break;
+            case '_':
+                new_text.append("_");
+                break;
+            case '=':
+                new_text.append("=");
+                break;
+            case ':':
+                new_text.append(":");
+                break;
+            case '/':
+                new_text.append("/");
+                break;
+
+
+            default:
+                new_text.append(1, *i);
+        }
+    }
+    text = std::move(new_text);
+    return text;
+}
+
+/**
+ * replace the first occurrence of color-config-code with a space
+ */
+std::string& remove_color(std::string &text){
+    text.replace(text.find(GIT_COLOR), std::strlen(GIT_COLOR), " ");
+    return text;
+}
+
 int before(const args_table_type &args_table, arg *args, int arg_num, int help_index, int strict_mode_index){
     // ====== Show help / Validate parameters
     for (auto &i : args_table){// read parameters
@@ -77,7 +203,8 @@ int before(const args_table_type &args_table, arg *args, int arg_num, int help_i
 int after(std::string const &git_cmd){
     // ====== Execute git command
     int res_code;
-    std::cout << YELLOW << "the git command is => " << NC << git_cmd << std::endl;
+    std::string no_color_git_cmd(git_cmd);
+    std::cout << YELLOW << "the git command is => " << NC << remove_color(no_color_git_cmd) << std::endl;
     std::cout << LIGHT_BLUE << "the git command output: " << NC << std::endl << std::endl;
     std::cout << exec(git_cmd, res_code) << std::endl;
     return res_code;

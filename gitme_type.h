@@ -49,6 +49,10 @@ std::string exec(std::string const &cmd, int &exit_code = exec_exit_code_);
 
 bool in_git_repos();
 
+std::string& escape_utf8(std::string &text);
+
+std::string& remove_color(std::string &text);
+
 class arg {
 public:
     std::string name;
@@ -74,3 +78,4 @@ int before(const args_table_type &args_table, arg *args, int arg_num, int help_i
 int after(std::string const &git_cmd);
 
 #endif //GITME_GITME_TYPE_H
+
