@@ -33,6 +33,120 @@ bool in_git_repos(){
     return ( exec("git rev-parse --is-inside-work-tree").find("true") != std::string::npos );
 }
 
+void escape_utf8(std::string &text){
+    std::string new_text;
+    for(auto i = text.begin(); i != text.end(); i++){
+        switch (*i) {
+            case '`':
+                new_text.append("\\").append("`");
+                break;
+            case '~':
+                new_text.append("\\").append("~");
+                break;
+            case '!':
+                new_text.append("\\").append("!");
+                break;
+            case '@':
+                new_text.append("\\").append("@");
+                break;
+            case '#':
+                new_text.append("\\").append("#");
+                break;
+            case '$':
+                new_text.append("\\").append("$");
+                break;
+            case '&':
+                new_text.append("\\").append("&");
+                break;
+            case '*':
+                new_text.append("\\").append("*");
+                break;
+            case '(':
+                new_text.append("\\").append("(");
+                break;
+            case ')':
+                new_text.append("\\").append(")");
+                break;
+            case '+':
+                new_text.append("\\").append("+");
+                break;
+            case '\\':
+                new_text.append("\\").append("\\");
+                break;
+            case '|':
+                new_text.append("\\").append("|");
+                break;
+            case ']':
+                new_text.append("\\").append("]");
+                break;
+            case '}':
+                new_text.append("\\").append("}");
+                break;
+            case '[':
+                new_text.append("\\").append("[");
+                break;
+            case '{':
+                new_text.append("\\").append("{");
+                break;
+            case ';':
+                new_text.append("\\").append(";");
+                break;
+            case '\'':
+                new_text.append("\\").append("'");
+                break;
+            case '"':
+                new_text.append("\\").append("\"");
+                break;
+            case '?':
+                new_text.append("\\").append("?");
+                break;
+            case '.':
+                new_text.append("\\").append(".");
+                break;
+            case '>':
+                new_text.append("\\").append(">");
+                break;
+            case ',':
+                new_text.append("\\").append(",");
+                break;
+            case '<':
+                new_text.append("\\").append("<");
+                break;
+            case ' ':
+                new_text.append("\\").append(" ");
+                break;
+
+
+            case '%':
+                new_text.append("%");
+                break;
+            case '^':
+                new_text.append("^");
+                break;
+            case '-':
+                new_text.append("-");
+                break;
+            case '_':
+                new_text.append("_");
+                break;
+            case '=':
+                new_text.append("=");
+                break;
+            case ':':
+                new_text.append(":");
+                break;
+            case '/':
+                new_text.append("/");
+                break;
+
+
+            default:
+                new_text.append(1, *i);
+        }
+    }
+    text = std::move(new_text);
+}
+
 int before(const args_table_type &args_table, arg *args, int arg_num, int help_index, int strict_mode_index){
     // ====== Show help / Validate parameters
     for (auto &i : args_table){// read parameters
