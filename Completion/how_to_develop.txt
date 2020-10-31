@@ -6,10 +6,44 @@
 ========================================================================================================================
 <pname.sh>:
 1. For each subcommand, it will have two lines like below in the pname.sh. Just replace
-   the SUB_COMMAND and PARAMETER to use the template below.
+   the SUB_COMMAND and the PARAMETER to use the template below.
 
 gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)[^:] | gitme+([[:space:]])SUB_COMMAND+([[:space:]]) )
 mapfile -t COMPREPLY < <(compgen -W "PARAMETER PARAMETER PARAMETER PARAMETER" -- "$cur");;
+
+2. Do not have space(s)/tab(s) at the beginning of each line.
+3. Blank line(s) is acceptable, but it is best not to have blank line(s).
+========================================================================================================================
+<pvalue.sh>:
+1. For each subcommand and parameter combination that needs value completion, it will have four lines
+   like below in the pvalue.sh. Just replace the SUB_COMMAND and the PARAMETER and the VALUE to use the
+   template below.
+
+gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)+([[:space:]])[-]PARAMETER[:] | gitme+([[:space:]])SUB_COMMAND+([[:space:]])[-]PARAMETER[:] )
+mapfile -t COMPREPLY < <(compgen -W "VALUE VALUE" -- "$curp");;
+gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)+([[:space:]])[-]PARAMETER[:]*([^[:space:]]) | gitme+([[:space:]])SUB_COMMAND+([[:space:]])[-]PARAMETER[:]*([^[:space:]]) )
+mapfile -t COMPREPLY < <(compgen -W "VALUE VALUE" -- "$cur");;
+
+   There are three built-in value list:
+     $bool     ==> true, false
+     $smode    ==> on, off
+     $branches ==> The list of git branch names(both local and remote), empty if not in a git repository.
+   e.g.:
+
+gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)+([[:space:]])[-]PARAMETER[:] | gitme+([[:space:]])SUB_COMMAND+([[:space:]])[-]PARAMETER[:] )
+mapfile -t COMPREPLY < <(compgen -W "$bool" -- "$curp");;
+gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)+([[:space:]])[-]PARAMETER[:]*([^[:space:]]) | gitme+([[:space:]])SUB_COMMAND+([[:space:]])[-]PARAMETER[:]*([^[:space:]]) )
+mapfile -t COMPREPLY < <(compgen -W "$bool" -- "$cur");;
+
+gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)+([[:space:]])[-]PARAMETER[:] | gitme+([[:space:]])SUB_COMMAND+([[:space:]])[-]PARAMETER[:] )
+mapfile -t COMPREPLY < <(compgen -W "$smode" -- "$curp");;
+gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)+([[:space:]])[-]PARAMETER[:]*([^[:space:]]) | gitme+([[:space:]])SUB_COMMAND+([[:space:]])[-]PARAMETER[:]*([^[:space:]]) )
+mapfile -t COMPREPLY < <(compgen -W "$smode" -- "$cur");;
+
+gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)+([[:space:]])[-]PARAMETER[:] | gitme+([[:space:]])SUB_COMMAND+([[:space:]])[-]PARAMETER[:] )
+mapfile -t COMPREPLY < <(compgen -W "$branches" -- "$curp");;
+gitme+([[:space:]])SUB_COMMAND+([[:space:]])*(?)+([[:space:]])[-]PARAMETER[:]*([^[:space:]]) | gitme+([[:space:]])SUB_COMMAND+([[:space:]])[-]PARAMETER[:]*([^[:space:]]) )
+mapfile -t COMPREPLY < <(compgen -W "$branches" -- "$cur");;
 
 2. Do not have space(s)/tab(s) at the beginning of each line.
 3. Blank line(s) is acceptable, but it is best not to have blank line(s).
