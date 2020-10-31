@@ -1,9 +1,6 @@
-# Gitme
-## Build
-* source charset: UTF-8
-* execution charset: UTF-8
-* no wide character
-## Files
-* LF
-* UTF-8
-* 4 spaces
+## 语言
+C++
+## 编译
+CMake GCC
+## IDE
+CLion on Linux
